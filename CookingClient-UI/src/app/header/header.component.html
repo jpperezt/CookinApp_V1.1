@@ -1,0 +1,40 @@
+<header>
+  <nav class ="navbar navbar-expand-md navbar-dark bg-dark">  
+  <!--<div><a class="navbar-brand">{{ username }} {{ usertype }}</a></div>-->
+  <div><a *ngIf="loginService.getUserLoggedIn() == 'ADMIN'" class="navbar-brand">ADMIN</a></div>
+  <div><a *ngIf="loginService.getUserLoggedIn() == 'CHEF'" class="navbar-brand">CHEF</a></div>
+  <div><a *ngIf="loginService.getUserLoggedIn() == 'USER'" class="navbar-brand">USER</a></div>
+  <ul *ngIf="loginService.getUserLoggedIn() == 'ADMIN'" class="navbar-nav">
+    <li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/users" class="nav-link">View Users</a></li>
+    <li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/adduser" class="nav-link">Add New User</a></li>
+    <li><a *ngIf="!loginService.isUserLoggedIn()" routerLink="/login" class="nav-link">Login</a></li>
+  	<li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/logout" class="nav-link">LogOut</a></li>
+  </ul>
+  <ul *ngIf="loginService.getUserLoggedIn() == 'CHEF'" class="navbar-nav">
+    <li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/recipes" class="nav-link">View Recipes</a></li>
+    <li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/addrecipe" class="nav-link">Add New Recipe</a></li>
+    <li><a *ngIf="!loginService.isUserLoggedIn()" routerLink="/login" class="nav-link">Login</a></li>
+  	<li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/logout" class="nav-link">LogOut</a></li>
+  </ul>
+  <ul *ngIf="loginService.getUserLoggedIn() == 'USER'" class="navbar-nav">
+    <li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/allrecipes" class="nav-link">Browse Recipes</a></li>
+    <li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/adduser" class="nav-link">Search Recipes</a></li>
+    <li><a *ngIf="!loginService.isUserLoggedIn()" routerLink="/login" class="nav-link">Login</a></li>
+  	<li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/logout" class="nav-link">LogOut</a></li>
+  </ul>
+
+  <ul class="navbar-nav">
+    <li><a *ngIf="!loginService.isUserLoggedIn()" routerLink="/login" class="nav-link">Login</a></li>
+  </ul> 
+
+  <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
+
+  </nav>  
+
+  <div *ngIf="loginService.getUserLoggedIn() == 'USER'">
+    <form (submit)="search()">
+      <input type="text" [(ngModel)]="q" name="searchText" placeholder="Search By Recipe Name">
+    </form>
+  </div>
+
+</header>
